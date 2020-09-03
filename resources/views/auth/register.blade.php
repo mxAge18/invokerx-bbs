@@ -65,14 +65,15 @@
                                 <label for="captcha" class="col-md-4 col-form-label text-md-right">验证码</label>
 
                                 <div class="col-md-6">
+                                    <img class="thumbnail captcha mt-3 mb-2" src="{{ captcha_src('flat') }}" onclick="this.src='/captcha/flat?'+Math.random()" title="点击图片重新获取验证码">
+
                                     <input id="captcha" class="form-control{{ $errors->has('captcha') ? ' is-invalid' : '' }}" name="captcha" required>
 
-                                    <img class="thumbnail captcha mt-3 mb-2" src="{{ captcha_src('flat') }}" onclick="this.src='/captcha/flat?'+Math.random()" title="点击图片重新获取验证码">
 
                                     @if ($errors->has('captcha'))
                                         <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('captcha') }}</strong>
-                  </span>
+                                            <strong>{{ $errors->first('captcha') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                             </div>
