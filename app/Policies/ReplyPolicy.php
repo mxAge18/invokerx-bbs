@@ -15,6 +15,6 @@ class ReplyPolicy extends Policy
 
     public function destroy(User $user, Reply $reply)
     {
-        return true;
+        return $user->isAuthOf($reply) || $user->isAuthOf($reply->topic);
     }
 }
