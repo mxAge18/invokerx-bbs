@@ -18,12 +18,14 @@
         "laravel/tinker": "^2.0",
         "mews/captcha": "~3.0",
         "mews/purifier": "~3.0",
+        "overtrue/easy-sms": "^1.1",
         "overtrue/laravel-lang": "~3.0",
         "overtrue/pinyin": "~4.0",
         "predis/predis": "~1.1",
         "spatie/laravel-permission": "~3.0",
         "summerblue/administrator": "7.*",
         "summerblue/laravel-active": "7.*",
+        "twilio/sdk": "^6.11",
         "viacreative/sudo-su": "~1.1"
     },
     "require-dev": {
