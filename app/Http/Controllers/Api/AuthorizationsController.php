@@ -9,12 +9,14 @@ use Illuminate\Http\Request;
 use Overtrue\Socialite\AccessToken;
 use Illuminate\Auth\AuthenticationException;
 use App\Http\Requests\Api\SocialAuthorizationRequest;
+use App\Http\Requests\Api\AuthorizationRequest;
 
 class AuthorizationsController extends Controller
 {
     //
     public function socialStore(SocialAuthorizationRequest $request, $type)
     {
+
         $driver = \Socialite::driver($type);
 
         try {
@@ -58,7 +60,48 @@ class AuthorizationsController extends Controller
 
                 break;
         }
+        $token = auth('api')->login($user);
 
-        return response()->json(['token' => $user->id]);
+        return $this->respondWithToken($token)->setStatusCode(201);
+    }
+
+
+    public function store(AuthorizationRequest $request)
+    {
+        $username = $request->username;
+        filter_var($username, FILTER_VALIDATE_EMAIL) ?
+            $credentials['email'] = $username :
+            $credentials['phone'] = $username;
+
+        $credentials['password'] = $request->password;
+
+        if (!$token = \Auth::guard('api')->attempt($credentials)) {
+            throw new AuthenticationException('用户名或密码错误');
+        }
+
+
+        return $this->respondWithToken($token)->setStatusCode(201);
+    }
+
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+            'expires_in' => auth('api')->factory()->getTTL() * 60
+        ]);
+    }
+
+
+    public function update()
+    {
+        $token = auth('api')->refresh();
+        return $this->respondWithToken($token);
+    }
+
+    public function destroy()
+    {
+        auth('api')->logout();
+        return response(null, 204);
     }
 }
