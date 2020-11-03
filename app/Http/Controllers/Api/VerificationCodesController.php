@@ -52,7 +52,7 @@ class VerificationCodesController extends Controller
 
         // 清除图片验证码缓存
         // https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx5ac392aa789c59ed&redirect_uri=http://www.bbs.com&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect
-        // https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx0b2351d55a52131b&redirect_uri=http://www.bbs.com&response_type=code&scope=snsapi_login&state=STATE#wechat_redirect
+        // https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx0b2351d55a52131b&redirect_uri=http://www.bbs.com&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect
         // https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx0b2351d55a52131b&secret=5e58d9eafd87d8371dc6c8c00f9a8cfe&code=091RrQFa1ISpUz0KWFJa1F0z6j2RrQFi&grant_type=authorization_code
 
         \Cache::forget($request->captcha_key);
