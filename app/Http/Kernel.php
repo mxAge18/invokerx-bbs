@@ -74,11 +74,12 @@ class Kernel extends HttpKernel
         // API 中间件组，应用于 routes/api.php 路由文件，
         // 在 RouteServiceProvider 中设定
         'api' => [
+
+            \App\Http\Middleware\AcceptHeader::class,
             // 使用别名来调用中间件
             // 请见：https://learnku.com/docs/laravel/7.x/middleware#为路由分配中间件
             'throttle:60,1',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \App\Http\Middleware\AcceptHeader::class,
 
         ],
     ];
