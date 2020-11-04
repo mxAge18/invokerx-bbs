@@ -28,6 +28,8 @@ class TopicResource extends JsonResource
             'slug' => $this->slug,
             'updated_at' => (string)$this->updated_at,
             'created_at' => (string)$this->created_at,
+            'user' => new UserResource($this->whenLoaded('user')),
+            'category' => new CategoryResource($this->whenLoaded('category'))
         ];
     }
 }
