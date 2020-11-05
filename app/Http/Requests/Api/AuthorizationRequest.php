@@ -25,7 +25,7 @@ class AuthorizationRequest extends FormRequest
     {
         return [
             'username' => 'required|string',
-            'password' => 'required|alpha_dash|min:6',
+            'password' => 'required|string|min:6',
         ];
     }
 }

@@ -6,10 +6,14 @@ namespace App\Http\Controllers\Api;
 use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use League\OAuth2\Server\AuthorizationServer;
+use League\OAuth2\Server\Exception\OAuthServerException;
 use Overtrue\Socialite\AccessToken;
 use Illuminate\Auth\AuthenticationException;
 use App\Http\Requests\Api\SocialAuthorizationRequest;
 use App\Http\Requests\Api\AuthorizationRequest;
+use Zend\Diactoros\Response as Psr7Response;
+use Psr\Http\Message\ServerRequestInterface;
 
 class AuthorizationsController extends Controller
 {
@@ -66,22 +70,31 @@ class AuthorizationsController extends Controller
     }
 
 
-    public function store(AuthorizationRequest $request)
+    public function store(AuthorizationRequest $originRequest, AuthorizationServer $server, ServerRequestInterface $serverRequest)
     {
-        $username = $request->username;
-        filter_var($username, FILTER_VALIDATE_EMAIL) ?
-            $credentials['email'] = $username :
-            $credentials['phone'] = $username;
-
-        $credentials['password'] = $request->password;
-
-        if (!$token = \Auth::guard('api')->attempt($credentials)) {
-            throw new AuthenticationException('用户名或密码错误');
+        try {
+            return $server->respondToAccessTokenRequest($serverRequest, new Psr7Response)->withStatus(201);
+        } catch(OAuthServerException $e) {
+            throw new AuthenticationException($e->getMessage());
         }
-
-
-        return $this->respondWithToken($token)->setStatusCode(201);
     }
+
+//    public function store(AuthorizationRequest $request)
+//    {
+//        $username = $request->username;
+//        filter_var($username, FILTER_VALIDATE_EMAIL) ?
+//            $credentials['email'] = $username :
+//            $credentials['phone'] = $username;
+//
+//        $credentials['password'] = $request->password;
+//
+//        if (!$token = \Auth::guard('api')->attempt($credentials)) {
+//            throw new AuthenticationException('用户名或密码错误');
+//        }
+//
+//
+//        return $this->respondWithToken($token)->setStatusCode(201);
+//    }
 
     protected function respondWithToken($token)
     {
@@ -92,16 +105,33 @@ class AuthorizationsController extends Controller
         ]);
     }
 
-
-    public function update()
+    public function update(AuthorizationServer $server, ServerRequestInterface $serverRequest)
     {
-        $token = auth('api')->refresh();
-        return $this->respondWithToken($token);
+        try {
+            return $server->respondToAccessTokenRequest($serverRequest, new Psr7Response);
+        } catch(OAuthServerException $e) {
+            throw new AuthenticationException($e->getmessage());
+        }
     }
 
     public function destroy()
     {
-        auth('api')->logout();
-        return response(null, 204);
+        if (auth('api')->check()) {
+            auth('api')->user()->token()->revoke();
+            return response(null, 204);
+        } else {
+            throw new AuthenticationException('The token is invalid.');
+        }
     }
+//    public function update()
+//    {
+//        $token = auth('api')->refresh();
+//        return $this->respondWithToken($token);
+//    }
+
+//    public function destroy()
+//    {
+//        auth('api')->logout();
+//        return response(null, 204);
+//    }
 }
