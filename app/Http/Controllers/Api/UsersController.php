@@ -64,12 +64,9 @@ class UsersController extends Controller
     }
 
 
-    public function activedIndex()
-    {
-        public function activedIndex(User $user)
+    public function activedIndex(User $user)
     {
         UserResource::wrap('data');
         return UserResource::collection($user->getActiveUsers());
-    }
     }
 }
