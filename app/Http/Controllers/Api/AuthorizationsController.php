@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Models\User;
+use App\Traits\PassportToken;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use League\OAuth2\Server\AuthorizationServer;
@@ -17,6 +18,7 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class AuthorizationsController extends Controller
 {
+    use PassportToken;
     //
     public function socialStore(SocialAuthorizationRequest $request, $type)
     {
@@ -64,9 +66,9 @@ class AuthorizationsController extends Controller
 
                 break;
         }
-        $token = auth('api')->login($user);
+        $result = $this->getBearerTokenByUser($user, '1', false);
 
-        return $this->respondWithToken($token)->setStatusCode(201);
+        return response()->json($result)->setStatusCode(201);
     }
 
 
