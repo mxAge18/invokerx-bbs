@@ -116,6 +116,10 @@ Route::prefix('v1')
 
                     Route::get('user/permissions', "PermissionsController@index")
                         ->name('user.permissions.index');
+
+                    // 资源推荐
+                    Route::get('links', 'LinksController@index')
+                        ->name('links.index');
                 });
             });
 });
