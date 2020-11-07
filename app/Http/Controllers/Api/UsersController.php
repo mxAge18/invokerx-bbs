@@ -50,7 +50,7 @@ class UsersController extends Controller
 
     public function update(UserRequest $request, User $user)
     {
-        $this->authorize('update', $user);
+        //$this->authorize('update', $user);
 
         $attributes = $request->only(['name', 'email', 'introduction', 'registration_id']);
 
