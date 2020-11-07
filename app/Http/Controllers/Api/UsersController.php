@@ -48,8 +48,10 @@ class UsersController extends Controller
         return (new UserResource($request->user()))->showSensitiveFields();
     }
 
-    public function update(UserRequest $request, User $user)
+    public function update(UserRequest $request)
     {
+        $user = auth('api')->id();
+        dd($user);die;
         //$this->authorize('update', $user);
 
         $attributes = $request->only(['name', 'email', 'introduction', 'registration_id']);
