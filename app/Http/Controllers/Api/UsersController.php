@@ -59,8 +59,8 @@ class UsersController extends Controller
             $image = Image::find($request->avatar_image_id);
             $attributes['avatar'] = $image->path;
         }
-        dd($attributes);die;
-        $user->update($attributes);
+        $res = $user->update($attributes);
+        dd($res);die;
         return (new UserResource($user))->showSensitiveFields();
     }
 
