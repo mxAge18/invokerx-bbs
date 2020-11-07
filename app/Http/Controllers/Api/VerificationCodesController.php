@@ -19,7 +19,10 @@ class VerificationCodesController extends Controller
         }
 
         if (!hash_equals($captchaData['code'], $request->captcha_code)) {
-            dd($request->captcha_code);die;
+            dd($request->captcha_code);
+            dd($captchaData['code']);
+            dd(hash_equals($captchaData['code'], $request->captcha_code));
+            die;
             // 验证错误就清除缓存
             \Cache::forget($request->captcha_key);
             throw new AuthenticationException('验证码错误');
