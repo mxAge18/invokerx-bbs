@@ -70,6 +70,7 @@ class UsersController extends Controller
         return UserResource::collection($user->getActiveUsers());
     }
 
+    // 微信小程序创建用户接口
     public function weappStore(UserRequest $request)
     {
         // 缓存中是否存在对应的 key

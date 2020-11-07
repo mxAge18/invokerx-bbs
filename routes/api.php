@@ -49,7 +49,11 @@ Route::prefix('v1')
                 // 小程序注册
                 Route::post('weapp/users', 'UsersController@weappStore')
                     ->name('weapp.users.store');
-
+                // 编辑登录用户信息
+                Route::patch('user', 'UsersController@update')
+                    ->name('user.patch');
+                Route::put('user', 'UsersController@update')
+                    ->name('user.update');
                 // 刷新token
                 Route::put('authorizations/current', 'AuthorizationsController@update')
                     ->name('authorizations.update');
