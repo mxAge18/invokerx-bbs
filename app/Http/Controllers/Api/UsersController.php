@@ -50,7 +50,7 @@ class UsersController extends Controller
 
     public function update(UserRequest $request)
     {
-        $user = auth('api')->id();
+        $user = auth('api')->getUser();
         dd($user);die;
         //$this->authorize('update', $user);
 
