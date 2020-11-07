@@ -55,6 +55,12 @@ class Topic extends Model
         return $this->hasMany(Reply::class);
     }
 
+    // 增加 topReplies 关系 : TopicQuery 使用
+    public function topReplies()
+    {
+        return $this->replies()->limit(5);
+    }
+
     public function updateReplyCount()
     {
         $this->reply_count = $this->replies->count();

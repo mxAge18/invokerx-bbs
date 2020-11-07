@@ -120,12 +120,14 @@ Route::prefix('v1')
                         ->name('notifications.index');
 
                     // 通知统计
-                    Route::get('notifications/stats', 'NotificationsController@stats')
+                    Route::get('user/notifications/stats', 'NotificationsController@stats')
                         ->name('notifications.stats');
 
                     // 标记消息通知为已读
                     Route::patch('user/read/notifications', 'NotificationsController@read')
                         ->name('user.notifications.read');
+                    Route::put('user/read/notifications', 'NotificationsController@read')
+                        ->name('user.notifications.read.put');
 
                     Route::get('user/permissions', "PermissionsController@index")
                         ->name('user.permissions.index');
