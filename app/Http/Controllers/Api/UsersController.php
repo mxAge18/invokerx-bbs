@@ -48,9 +48,9 @@ class UsersController extends Controller
         return (new UserResource($request->user()))->showSensitiveFields();
     }
 
-    public function update(UserRequest $request)
+    public function update(UserRequest $request, User $user)
     {
-        $user = $request->user();
+        $this->authorize('update', $user);
 
         $attributes = $request->only(['name', 'email', 'introduction', 'registration_id']);
 
@@ -59,8 +59,9 @@ class UsersController extends Controller
             $image = Image::find($request->avatar_image_id);
             $attributes['avatar'] = $image->path;
         }
+        dd($user);die;
         $res = $user->update($attributes);
-        dd($res);die;
+
         return (new UserResource($user))->showSensitiveFields();
     }
 
