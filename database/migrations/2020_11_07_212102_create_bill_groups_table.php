@@ -17,7 +17,7 @@ class CreateBillGroupsTable extends Migration
             $table->id();
             $table->string('group_name');
             $table->timestamps();
-            $table->foreign('bill_group_id')->references('id')->on('bill_group_user')->onDelete('cascade');
+//            $table->foreign('bill_group_id')->references('id')->on('bill_group_user')->onDelete('cascade');
         });
     }
 
@@ -30,7 +30,7 @@ class CreateBillGroupsTable extends Migration
     {
         Schema::table('bill_groups', function (Blueprint $table) {
             // 移除外键约束
-            $table->dropForeign(['bill_group_id']);
+//            $table->dropForeign(['bill_group_id']);
         });
         Schema::dropIfExists('bill_group');
     }
