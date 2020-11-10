@@ -47,6 +47,15 @@ return array(
             'topics',
             'replies',
         ],
+        '小组管理' => [
+            'bill_groups',
+            'bill_group_users',
+        ],
+        '账单管理' => [
+            'bills',
+            'bill_users',
+            'bill_details'
+        ],
 
         '站点管理' => [
             'settings.site',

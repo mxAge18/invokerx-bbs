@@ -22,7 +22,7 @@ class BillsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('auth');
     }
 
 	public function index(Request $request, Bill $bill, Link $link, BillGroupUser $billGroupUser)
