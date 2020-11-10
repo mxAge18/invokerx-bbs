@@ -73,6 +73,7 @@ class User extends Authenticatable implements MustVerifyEmailContract, JWTSubjec
         return $this->hasMany(Topic::class);
     }
 
+
     public function isAuthOf($model)
     {
         return $this->id == $model->user_id;
@@ -137,5 +138,17 @@ class User extends Authenticatable implements MustVerifyEmailContract, JWTSubjec
             $credentials['phone'] = $username;
 
         return self::where($credentials)->first();
+    }
+
+
+
+    public function billGroupUser()
+    {
+        return $this->hasMany(BillGroupUser::class);
+    }
+
+    public function paymentUser()
+    {
+        return $this->hasMany(Bill::class);
     }
 }

@@ -24,6 +24,7 @@ class UsersTableSeeder extends Seeder
         $user->save();
 
 
+
         // 初始用户角色 1号为站长 2号为管理员
         $user->assignRole('Founder');
 

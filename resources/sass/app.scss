@@ -77,7 +77,7 @@ body {
 
 
 /* Topic Index Page */
-.topics-index-page, .categories-show-page, .root-page {
+.topics-index-page,.bills-index-page, .categories-show-page, .root-page {
   .topic-list {
     .nav>li>a {
       position: relative;
@@ -163,5 +163,15 @@ body {
 
   .badge-hint {
     background-color: #d15b47 !important;
+  }
+
+  /* bill 表格文字垂直居中 */
+  .table th, .table td{
+    text-align: center;
+    vertical-align: middle !important;
+  }
+
+  .sidebar-table, .sidebar-table{
+    padding:0 !important;
   }
 }

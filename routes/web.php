@@ -55,3 +55,7 @@ Route::resource('replies', 'RepliesController', ['only' => ['store', 'destroy']]
 Route::resource('notifications', 'NotificationsController', ['only' => ['index']]);
 
 Route::get('permission-denied', 'PagesController@permissionDenied')->name('permission-denied');
+Route::resource('bills', 'BillsController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+
+// bill upload image
+Route::post('upload_image', 'BillsController@uploadImage')->name('bills.upload_image');

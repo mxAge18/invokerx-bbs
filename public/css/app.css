@@ -17070,6 +17070,7 @@ body {
 /* Topic Index Page */
 
 .topics-index-page .topic-list .nav > li > a,
+.bills-index-page .topic-list .nav > li > a,
 .categories-show-page .topic-list .nav > li > a,
 .root-page .topic-list .nav > li > a {
   position: relative;
@@ -17079,12 +17080,14 @@ body {
 }
 
 .topics-index-page .topic-list a,
+.bills-index-page .topic-list a,
 .categories-show-page .topic-list a,
 .root-page .topic-list a {
   color: #444444;
 }
 
 .topics-index-page .topic-list .meta,
+.bills-index-page .topic-list .meta,
 .categories-show-page .topic-list .meta,
 .root-page .topic-list .meta {
   font-size: 0.9em;
@@ -17092,18 +17095,21 @@ body {
 }
 
 .topics-index-page .topic-list .meta a,
+.bills-index-page .topic-list .meta a,
 .categories-show-page .topic-list .meta a,
 .root-page .topic-list .meta a {
   color: #b3b3b3;
 }
 
 .topics-index-page .topic-list .badge,
+.bills-index-page .topic-list .badge,
 .categories-show-page .topic-list .badge,
 .root-page .topic-list .badge {
   background-color: #d8d8d8;
 }
 
 .topics-index-page .topic-list hr,
+.bills-index-page .topic-list hr,
 .categories-show-page .topic-list hr,
 .root-page .topic-list hr {
   margin-top: 12px;
@@ -17599,6 +17605,10 @@ body {
 
 /* 消息通知 */
 
+.notification-badge {
+  /* bill 表格文字垂直居中 */
+}
+
 .notification-badge .badge {
   font-size: 12px;
   margin-top: 14px;
@@ -17610,5 +17620,16 @@ body {
 
 .notification-badge .badge-hint {
   background-color: #d15b47 !important;
+}
+
+.notification-badge .table th,
+.notification-badge .table td {
+  text-align: center;
+  vertical-align: middle !important;
+}
+
+.notification-badge .sidebar-table,
+.notification-badge .sidebar-table {
+  padding: 0 !important;
 }
 
