@@ -20,7 +20,7 @@
                     <td>
                         <div class="media-left text-left" >
                             <a href="{{ route('users.show', [$bill->paymentUser->id]) }}">
-                                <img class="media-object img-thumbnail mr-3" style="width: 52px; height: 52px;" src="{{ $bill->paymentUser->avatar }}" title="{{ $bill->user->name }}">
+                                <img class="media-object img-thumbnail mr-3" style="width: 40px; height: 40px;" src="{{ $bill->paymentUser->avatar }}" title="{{ $bill->user->name }}">
                             </a>
                             <span>{{$bill->paymentUser->name}}</span>
                         </div>
