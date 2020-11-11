@@ -32,7 +32,7 @@ class BillsController extends Controller
             ->paginate(5);
 
         $links = $link->getAllCached();
-        $billGroupUsers = $billGroupUser->getAllCached();
+        $billGroupUsers = $billGroupUser->all();
 		return view('bills.index', compact('bills', 'links', 'billGroupUsers'));
 	}
 
@@ -53,12 +53,21 @@ class BillsController extends Controller
         $user = BillGroupUser::with('user')
             ->where('bill_group_id', 2)
             ->get();
+        $token = rand(10000, 99999);
+        session('form_token',  $token);
 
-		return view('bills.create_and_edit', compact('bill', 'group', 'user'));
+		return view('bills.create_and_edit', compact('bill', 'group', 'user', 'token'));
 	}
 
 	public function store(BillRequest $request, Bill $bill)
 	{
+        $input_token = $request['token'];
+        $token = session('form_token');
+        if($input_token != $token) {
+            return ['success', '禁止重复提交.'];
+        }
+        // clear session token
+        session('form_token', null);
         DB::beginTransaction();
 
         $bill->fill($request->all());

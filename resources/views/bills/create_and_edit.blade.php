@@ -76,8 +76,9 @@
                   @else
                       @foreach ($user as $value)
                           <div class="form-group">
+                              <input type='hidden' name='token' value='{{ $token }}' />
                               <label for="single_bill_user_{{$value->user_id}}">{{$value->user->name}}单独花费金额：</label>
-                              <input class="form-control" type="number" min="0.0" step="0.01" name="single_bill_user_{{$value->user_id}}" id="single_bill_user_{{$value->user_id}}" value="single_bill_user_{{$value->user_id}}" />
+                              <input class="form-control" type="number" min="0.0" step="0.01" name="single_bill_user_{{$value->user_id}}" id="single_bill_user_{{$value->user_id}}" value="0" />
                           </div>
                       @endforeach
               @endif
