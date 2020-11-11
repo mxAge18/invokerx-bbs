@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BillRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class BillsController extends Controller
@@ -54,7 +55,7 @@ class BillsController extends Controller
             ->where('bill_group_id', 2)
             ->get();
         $token = rand(10000, 99999);
-        session('form_token',  $token);
+        Cache::put('form_token', $token, 3600);
 
 		return view('bills.create_and_edit', compact('bill', 'group', 'user', 'token'));
 	}
@@ -62,12 +63,12 @@ class BillsController extends Controller
 	public function store(BillRequest $request, Bill $bill)
 	{
         $input_token = $request['token'];
-        $token = session('form_token');
+        $token = Cache::get('form_token');
         if($input_token != $token) {
-            return ['success', '禁止重复提交.'];
+            return redirect()->action('BillsController@index')->with('不能重复提交');
         }
         // clear session token
-        session('form_token', null);
+        Cache::forget('form_token');
         DB::beginTransaction();
 
         $bill->fill($request->all());
