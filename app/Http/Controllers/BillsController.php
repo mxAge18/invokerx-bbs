@@ -55,7 +55,7 @@ class BillsController extends Controller
             ->where('bill_group_id', 2)
             ->get();
         $token = rand(10000, 99999);
-        Cache::put('form_token', $token, 3600);
+        Cache::put(auth::id() . 'form_token', $token, 3600);
 
 		return view('bills.create_and_edit', compact('bill', 'group', 'user', 'token'));
 	}
@@ -63,12 +63,12 @@ class BillsController extends Controller
 	public function store(BillRequest $request, Bill $bill)
 	{
         $input_token = $request['token'];
-        $token = Cache::get('form_token');
+        $token = Cache::get(auth::id() . 'form_token');
         if($input_token != $token) {
             return redirect()->action('BillsController@index')->with('不能重复提交');
         }
         // clear session token
-        Cache::forget('form_token');
+        Cache::forget(auth::id() .'form_token');
         DB::beginTransaction();
 
         $bill->fill($request->all());
